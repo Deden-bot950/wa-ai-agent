@@ -88,6 +88,8 @@ exports.handler = async (event, context) => {
       }),
     });
 
+    
+
     return { statusCode: 200, headers, body: JSON.stringify({ status: "ok" }) };
 
   } catch (err) {
