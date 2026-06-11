@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
 
     const FONNTE_TOKEN    = process.env.FONNTE_TOKEN;
     const GROQ_API_KEY    = process.env.GROQ_API_KEY;
-    const KNOWLEDGE_BASE  = process.env.KNOWLEDGE_BASE || "Saya adalah asisten AI.";
+    const const KNOWLEDGE_BASE = process.env.KNOWLEDGE_BASE || `Sarana Multy Logam adalah perusahaan fabrikasi mesin industri dan UMKM di Jl. Cibuntu Tengah 1 RT 04/09, Bandung. Produk: Kuali/Wajan Besar, Mesin Mixer, Mesin Penggiling, Tangki Stainless, Mesin Coating, Peralatan Dapur Industri, Custom mesin. Bahan: plat besi atau stainless steel. WA: 625371526068.`;
     const BOT_NAME        = process.env.BOT_NAME || "Rifty Agustin";
     const OWNER_NUMBER    = process.env.OWNER_NUMBER || "";
     const GROQ_MODEL      = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
