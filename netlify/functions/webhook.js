@@ -73,7 +73,7 @@ exports.handler = async (event, context) => {
     });
 
     const groqData = await groqRes.json();
-    const aiReply = groqData.choices?.[0]?.message?.content || "Maaf, saya tidak bisa memproses permintaan Anda.";
+    const aiReply = groqData.choices?.[0]?.message?.content || JSON.stringify(groqData);
 
     await fetch("https://api.fonnte.com/send", {
       method: "POST",
