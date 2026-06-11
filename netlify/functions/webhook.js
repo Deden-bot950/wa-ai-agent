@@ -191,9 +191,10 @@ exports.handler = async (event, context) => {
         countryCode: "62",
       }),
     });
+
     return { statusCode: 200, headers, body: JSON.stringify({ status: "ok" }) };
 
   } catch (err) {
     return { statusCode: 200, headers, body: JSON.stringify({ status: "error", message: err.message }) };
   }
-};
+}
