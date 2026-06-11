@@ -40,7 +40,7 @@ exports.handler = async (event, context) => {
     const FONNTE_TOKEN    = process.env.FONNTE_TOKEN;
     const GROQ_API_KEY    = process.env.GROQ_API_KEY;
     const KNOWLEDGE_BASE  = process.env.KNOWLEDGE_BASE || "Saya adalah asisten AI.";
-    const BOT_NAME        = process.env.BOT_NAME || "Rini";
+    const BOT_NAME        = process.env.BOT_NAME || "Rifty Agustin";
     const OWNER_NUMBER    = process.env.OWNER_NUMBER || "";
     const GROQ_MODEL      = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
     const UPSTASH_URL     = process.env.UPSTASH_REDIS_URL;
