@@ -114,7 +114,7 @@ exports.handler = async (event, context) => {
             Authorization: `Bearer ${UPSTASH_TOKEN}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ value: JSON.stringify(history), ex: 86400 }),
+          body: JSON.stringify({ value: JSON.stringify(history) }),
         });
       } catch (e) {}
     }
