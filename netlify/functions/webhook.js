@@ -70,7 +70,7 @@ ATURAN WAJIB:
 - Kalau tidak tahu harga, bilang "hubungi kami untuk info harga"
 - Jawab singkat dan padat cocok untuk WhatsApp
 - Gunakan emoji secukupnya`;
-
+- Jangan perkenalkan diri di setiap pesan, cukup sekali di awal percakapan saja
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": `Bearer ${GROQ_API_KEY}` },
