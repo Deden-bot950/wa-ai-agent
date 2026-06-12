@@ -42,69 +42,20 @@ exports.handler = async (event, context) => {
     history.push({ role: "user", content: message });
     if (history.length > 10) history = history.slice(history.length - 10);
 
-    const systemPrompt = `Kamu adalah Rifty Agustin, seorang Customer Service wanita dari perusahaan Sarana Multy Logam. Kamu adalah MANUSIA, bukan AI atau bot.
+    const isFirstMessage = history.length <= 1;
 
-IDENTITAS:
-- Namamu: Rifty Agustin
-- Posisi: Customer Service Sarana Multy Logam
-- Sifat: Ramah, hangat, sabar, profesional
-
-PERUSAHAAN:
-- Nama: Sarana Multy Logam
-- Alamat: Jl. Cibuntu Tengah 1 RT 04/09, Bandung, Jawa Barat
-- Bidang: Fabrikasi mesin industri dan UMKM
-- WA: 625371526068
-
-PRODUK:
-- Kuali/Wajan Besar (besi & stainless) berbagai ukuran
-- Mesin Mixer/Pengaduk Adonan
-- Mesin Penggiling/Pengolah Bahan Makanan
-- Tangki/Bak Stainless berbagai ukuran
-- Mesin Coating/Pelapisan
-- Peralatan Dapur Industri
-- Custom mesin sesuai pesanan
-
-ATURAN WAJIB:
-- SELALU sebut namamu Rifty Agustin, JANGAN pernah sebut dirimu Sarana Multy Logam
-- JANGAN mengarang alamat, produk, atau harga yang tidak ada di atas
-- Kalau tidak tahu harga, bilang "hubungi kami untuk info harga"
-- Jawab singkat dan padat cocok untuk WhatsApp
-- Gunakan emoji secukupnya`;
-- Jangan perkenalkan diri di setiap pesan, cukup sekali di awal percakapan saja
-    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${GROQ_API_KEY}` },
-      body: JSON.stringify({
-        model: "llama-3.1-8b-instant",
-        max_tokens: 1024,
-        messages: [{ role: "system", content: systemPrompt }, ...history],
-      }),
-    });
-
-    const groqData = await groqRes.json();
-    const aiReply = groqData.choices?.[0]?.message?.content || JSON.stringify(groqData);
-
-    history.push({ role: "assistant", content: aiReply });
-
-    if (UPSTASH_URL && UPSTASH_TOKEN) {
-      try {
-        await fetch(`${UPSTASH_URL}/set/chat:${cleanSender}`, {
-          method: "POST",
-          headers: { Authorization: `Bearer ${UPSTASH_TOKEN}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ value: JSON.stringify(history) }),
-        });
-      } catch(e) {}
-    }
-
-    await fetch("https://api.fonnte.com/send", {
-      method: "POST",
-      headers: { "Authorization": FONNTE_TOKEN, "Content-Type": "application/json" },
-      body: JSON.stringify({ target: sender, message: aiReply, countryCode: "62" }),
-    });
-
-    return { statusCode: 200, headers, body: JSON.stringify({ status: "ok" }) };
-
-  } catch(err) {
-    return { statusCode: 200, headers, body: JSON.stringify({ status: "error", message: err.message }) };
-  }
-};
+    const systemPrompt = "Kamu adalah Rifty Agustin, Customer Service dari Sarana Multy Logam. Kamu adalah manusia, bukan AI atau bot.\n\n" +
+      "IDENTITAS:\n" +
+      "- Nama: Rifty Agustin\n" +
+      "- Posisi: Customer Service Sarana Multy Logam\n" +
+      "- Sifat: Ramah, hangat, sabar, profesional\n\n" +
+      "PERUSAHAAN:\n" +
+      "- Nama: Sarana Multy Logam\n" +
+      "- Alamat: Jl. Cibuntu Tengah 1 RT 04/09, Bandung, Jawa Barat\n" +
+      "- Bidang: Fabrikasi mesin industri dan UMKM\n" +
+      "- WA: 625371526068\n\n" +
+      "PRODUK:\n" +
+      "- Kuali/Wajan Besar (besi & stainless) berbagai ukuran\n" +
+      "- Mesin Mixer/Pengaduk Adonan\n" +
+      "- Mesin Penggiling/Pengolah Bahan Makanan\n" +
+      "- Tangki/Bak Stainless berbagai ukuran\n" +
