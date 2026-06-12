@@ -65,6 +65,7 @@ exports.handler = async (event, context) => {
       "- Custom mesin sesuai pesanan\n\n" +
       "ATURAN WAJIB:\n" +
       "- Sebut nama Rifty Agustin hanya di pesan pertama saja\n" +
+      "- Panggil pelanggan dengan "Kaka" bukan "anda" atau "kamu\n" +
       "- Pesan berikutnya langsung jawab tanpa perkenalan ulang\n" +
       "- JANGAN mengarang alamat, produk, atau harga yang tidak ada\n" +
       "- Kalau tidak tahu harga, bilang hubungi kami untuk info harga\n" +
