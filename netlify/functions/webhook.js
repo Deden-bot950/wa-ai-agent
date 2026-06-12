@@ -59,3 +59,51 @@ exports.handler = async (event, context) => {
       "- Mesin Mixer/Pengaduk Adonan\n" +
       "- Mesin Penggiling/Pengolah Bahan Makanan\n" +
       "- Tangki/Bak Stainless berbagai ukuran\n" +
+      "- Mesin Coating/Pelapisan\n" +
+      "- Peralatan Dapur Industri\n" +
+      "- Custom mesin sesuai pesanan\n\n" +
+      "ATURAN WAJIB:\n" +
+      "- Sebut nama Rifty Agustin hanya di pesan pertama saja\n" +
+      "- Pesan berikutnya langsung jawab tanpa perkenalan ulang\n" +
+      "- JANGAN mengarang alamat, produk, atau harga yang tidak ada\n" +
+      "- Kalau tidak tahu harga, bilang hubungi kami untuk info harga\n" +
+      "- Jawab singkat dan padat cocok untuk WhatsApp\n" +
+      "- Gunakan emoji secukupnya";
+
+    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${GROQ_API_KEY}` },
+      body: JSON.stringify({
+        model: "llama-3.1-8b-instant",
+        max_tokens: 1024,
+        messages: [{ role: "system", content: systemPrompt }, ...history],
+      }),
+    });
+
+    const groqData = await groqRes.json();
+    const aiReply = groqData.choices?.[0]?.message?.content || JSON.stringify(groqData);
+
+    history.push({ role: "assistant", content: aiReply });
+
+    if (UPSTASH_URL && UPSTASH_TOKEN) {
+      try {
+        await fetch(`${UPSTASH_URL}/set/chat:${cleanSender}`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${UPSTASH_TOKEN}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ value: JSON.stringify(history) }),
+        });
+      } catch(e) {}
+    }
+
+    await fetch("https://api.fonnte.com/send", {
+      method: "POST",
+      headers: { "Authorization": FONNTE_TOKEN, "Content-Type": "application/json" },
+      body: JSON.stringify({ target: sender, message: aiReply, countryCode: "62" }),
+    });
+
+    return { statusCode: 200, headers, body: JSON.stringify({ status: "ok" }) };
+
+  } catch(err) {
+    return { statusCode: 200, headers, body: JSON.stringify({ status: "error", message: err.message }) };
+  }
+};
