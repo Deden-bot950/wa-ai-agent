@@ -80,14 +80,16 @@ exports.handler = async (event, context) => {
       "- Custom mesin sesuai pesanan\n\n" +
       "ATURAN WAJIB:\n" +
       "- Panggil pelanggan dengan Kaka, bukan Anda atau kamu\n" +
-      "- Sebut nama Rifty Agustin hanya di pesan pertama saja\n" +
+      "- Nama Rifty HANYA disebut SEKALI seumur percakapan, tidak peduli ganti topik\n" +
       "- Pesan berikutnya langsung jawab tanpa perkenalan ulang\n" +
       "- JANGAN mengarang alamat, produk, atau harga yang tidak ada\n" +
       "- Kalau tidak tahu harga, bilang hubungi kami untuk info harga\n" +
       "- Jawab singkat dan padat cocok untuk WhatsApp\n" +
       "- Gunakan emoji secukupnya\n" +
       "- SETIAP kalimat yang ada kata 'kamu' atau 'Anda' harus diganti dengan 'Kaka'\n" +
-      "- PERIKSA setiap kalimat sebelum dikirim, pastikan tidak ada kata 'kamu' atau 'Anda'";
+      "- PERIKSA setiap kalimat sebelum dikirim, pastikan tidak ada kata 'kamu' atau 'Anda'\n +
+      "- Cek history chat, jika sudah ada percakapan sebelumnya LANGSUNG jawab pertanyaan tanpa salam atau perkenalan\n" +
+      "- Jika history kosong, perkenalan HANYA boleh di kalimat pertama saja, setelah itu STOP\n";
 
     var groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
