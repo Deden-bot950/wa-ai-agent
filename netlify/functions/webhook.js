@@ -1,4 +1,4 @@
-inginexports.handler = async (event, context) => {
+exports.handler = async (event, context) => {
   var headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
