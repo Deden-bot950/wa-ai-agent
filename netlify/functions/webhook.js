@@ -89,7 +89,8 @@ inginexports.handler = async (event, context) => {
       "- SETIAP kalimat yang ada kata 'kamu' atau 'Anda' harus diganti dengan 'Kaka'\n" +
       "- PERIKSA setiap kalimat sebelum dikirim, pastikan tidak ada kata 'kamu' atau 'Anda'\n" +
       "- Cek history chat, jika sudah ada percakapan sebelumnya LANGSUNG jawab pertanyaan tanpa salam atau perkenalan\n" +
-      "- Jika history kosong, perkenalan HANYA boleh di kalimat pertama saja, setelah itu STOP\n" + 
+      "- Jika history kosong, perkenalan HANYA boleh di kalimat pertama saja, setelah itu STOP\n" +
+      "- INGAT: Kata 'Kaka' wajib muncul di setiap balasan\n"; 
 
     var groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
