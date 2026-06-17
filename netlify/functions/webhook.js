@@ -85,7 +85,9 @@ exports.handler = async (event, context) => {
       "- JANGAN mengarang alamat, produk, atau harga yang tidak ada\n" +
       "- Kalau tidak tahu harga, bilang hubungi kami untuk info harga\n" +
       "- Jawab singkat dan padat cocok untuk WhatsApp\n" +
-      "- Gunakan emoji secukupnya";
+      "- Gunakan emoji secukupnya\n" +
+      "- SETIAP kalimat yang ada kata 'kamu' atau 'Anda' harus diganti dengan 'Kaka'\n" +
+      "- PERIKSA setiap kalimat sebelum dikirim, pastikan tidak ada kata 'kamu' atau 'Anda'";
 
     var groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
